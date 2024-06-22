@@ -5,39 +5,22 @@ using namespace std;
 
 class Solution {
 public:
-    bool isAnagram(string s, string t) {
-        unordered_map<char, int> letters;
+    bool isAnagram(string s1, string s2) {
+        if(s1.size() != s2.size()) return false;
 
+        array<int, 26> letters = {};
 
-        if(t.size() > s.size()) {
-            string tmp = s;
-            s = t;
-            t = tmp;
-        }
-
-        int uniqueLetters = 0;
-        for (int i = 0; i < s.size(); i++)
+        for (int i = 0; i < s1.size(); i++)
         {
-
-            if(letters[s[i]] > 0) letters[s[i]]++;
-            else {
-                letters[s[i]] = 1;
-                uniqueLetters++;
-            };
-        }
-
-        for (int i = 0; i < t.size(); i++)
-        {
-            if(letters[t[i]] < 0) {
-                return false;
-                
-            }
-            if(letters[t[i]] == 1) {
-                uniqueLetters--;
-            }
-            letters[t[i]]--;
+            letters[s1[i] - 'a']++;
+            letters[s2[i] - 'a']--;
         }
         
-        return uniqueLetters == 0;
+        for (int i = 0; i < letters.size(); i++)
+        {
+            if(letters[i] != 0) return false;
+        }
+
+        return true;
     }
 };
